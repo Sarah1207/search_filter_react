@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+.search_input {
+  padding: 10px 20px;
+  &::placeholder {
+    color:rgb(172, 160, 160);
+    font-style: italic;
+  }
+}

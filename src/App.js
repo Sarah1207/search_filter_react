@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.scss";
+import datas from "./datas.json";
 
-function App() {
+const App = () => {
+  const [searched, setSearched] = useState("");
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    let words = e.target.value;
+    setSearched(words);
+    console.log(words);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Search</h1>
+
+      <input
+        type="text"
+        value={searched}
+        placeholder="search..."
+        className="search_input"
+        onChange={handleChange}
+        role="search"
+      />
+
+      <div role='list'>
+        {datas
+          .filter((val) => {
+            if (searched === "") {
+              return val;
+            } else if (
+              val.first_name.toLowerCase().includes(searched.toLowerCase())
+            ) {
+              return val;
+            }
+          })
+          .map((value, key) => {
+            return (
+              <p key={key} className="user" role="listitem">
+                {value.first_name} - {value.email}
+              </p>
+            );
+          })}
+      </div>
+    </>
   );
-}
+};
 
 export default App;
